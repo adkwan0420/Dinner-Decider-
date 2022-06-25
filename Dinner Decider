@@ -1,0 +1,52 @@
+print("\033c")
+
+logo = '''
+                         ___________
+                         \         /
+                          )_______(
+                          |"""""""|_.-._,.---------.,_.-._
+                          |       | | |               | | ''-.
+                          |       |_| |_             _| |_..-'
+                          |_______| '-' `'---------'` '-'
+                          )"""""""(
+                         /_________\\
+                       .-------------.
+                      /_______________\\
+'''
+
+import random
+
+print(logo)
+decision_end = False
+decisions = {}
+
+
+def dinner_decider(decisions):
+    decider = ""
+    restaurant = ""
+    for user in decisions:
+        decider = random.choice(list(decisions))
+        restaurant = random.choice(decisions[user])
+    print (f"{decider}'s pick for dinner is {restaurant}")
+    print (decisions)
+    
+
+while not decision_end:
+    user = input("What is your name?\n").title()
+    restaurant_choice = input("Where would you like to eat?\n").title()
+    decisions[user] = [restaurant_choice]
+    if input("Would you like to add more people? Y/N\n").lower() == "n":
+        no_more_choices = False
+        while not no_more_choices:
+            add_more_choices = input ("Would you like to add more choices: Y/N\n").lower()
+            if add_more_choices == "n":
+                decision_end = True
+                no_more_choices = True
+                dinner_decider(decisions)
+            else:
+                user = input("What is your name?\n").title()
+                additional_restaurants = input("Please provide the additional restaurants\n").title()
+                if user in decisions:
+                    decisions[user].append(additional_restaurants)
+                    print(decisions)
+    
